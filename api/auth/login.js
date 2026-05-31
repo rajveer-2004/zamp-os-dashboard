@@ -1,11 +1,17 @@
 // api/auth/login.js
-import db from '../../lib/db.js';
-import bcrypt from 'bcryptjs';
-import { signToken, setCookieHeader } from '../../lib/auth.js';
+import { signToken } from '../../lib/auth.js';
+import cookie from 'cookie';
+
+const DEMO_USER = {
+  email: 'demo@smithtax.com',
+  password: 'zamp2026',
+  firm: 'Smith & Associates Tax Advisory',
+  id: 1
+};
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    return res.status(405).end();
   }
 
   const { email, password } = req.body || {};
@@ -14,36 +20,29 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Email and password are required' });
   }
 
-  try {
-    // Look up accountant
-    const accountant = db.prepare('SELECT * FROM accountants WHERE email = ?').get(email);
-    if (!accountant) {
-      return res.status(401).json({ error: 'Invalid email or password' });
-    }
-
-    // Compare passwords
-    const isValid = bcrypt.compareSync(password, accountant.password_hash);
-    if (!isValid) {
-      return res.status(401).json({ error: 'Invalid email or password' });
-    }
-
-    // Generate JWT
-    const token = signToken({
-      id: accountant.id,
-      email: accountant.email,
-      firm_name: accountant.firm_name
-    });
-
-    // Set secure cookie
-    setCookieHeader(res, token);
-
-    return res.status(200).json({
-      id: accountant.id,
-      email: accountant.email,
-      firm_name: accountant.firm_name
-    });
-  } catch (error) {
-    console.error('Login error:', error);
-    return res.status(500).json({ error: 'Server error during login' });
+  if (email !== DEMO_USER.email || password !== DEMO_USER.password) {
+    return res.status(401).json({ error: 'Invalid credentials' });
   }
+
+  // Generate JWT token with demo credentials
+  const token = signToken({
+    id: DEMO_USER.id,
+    email: DEMO_USER.email,
+    firm_name: DEMO_USER.firm,
+    firm: DEMO_USER.firm
+  });
+
+  // Set secure cookie as requested
+  res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=604800; SameSite=Strict; Secure`);
+
+  // Return flat properties for dashboard UI binding compatibility AND nested accountant schema
+  return res.status(200).json({
+    id: DEMO_USER.id,
+    email: DEMO_USER.email,
+    firm_name: DEMO_USER.firm,
+    accountant: {
+      email: DEMO_USER.email,
+      firm: DEMO_USER.firm
+    }
+  });
 }
