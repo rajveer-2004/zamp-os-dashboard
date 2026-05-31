@@ -33,6 +33,16 @@ export default function Sidebar({
           <div 
             className={`sidebar-item ${selectedClientId === null ? 'active' : ''}`}
             onClick={() => onSelectClient(null)}
+            style={{
+              color: selectedClientId === null ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
+              background: 'transparent',
+              fontWeight: selectedClientId === null ? 600 : 400,
+              padding: '8px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              borderRadius: '0'
+            }}
           >
             <span>Dashboard</span>
           </div>
@@ -40,11 +50,21 @@ export default function Sidebar({
           {/* List of all clients with Risk Dots */}
           {sortedClientsList.map(c => {
             const risk = c.risk || c.overallRisk || 'LOW';
+            const isActive = selectedClientId === c.id;
             return (
               <div
                 key={c.id}
-                className={`sidebar-client-item ${selectedClientId === c.id ? 'active' : ''}`}
+                className={`sidebar-client-item ${isActive ? 'active' : ''}`}
                 onClick={() => onSelectClient(c.id)}
+                style={{
+                  color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.5)',
+                  background: 'transparent',
+                  fontWeight: isActive ? 600 : 400,
+                  padding: '8px 16px 8px 32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  cursor: 'pointer'
+                }}
               >
                 <span style={{
                   width: '6px',
@@ -60,7 +80,19 @@ export default function Sidebar({
           })}
 
           {/* + Add client link */}
-          <div className="sidebar-add-client" onClick={onOpenAddClient}>
+          <div 
+            className="sidebar-add-client" 
+            onClick={onOpenAddClient}
+            style={{
+              color: '#005eff',
+              fontWeight: 600,
+              padding: '8px 16px 8px 32px',
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              fontSize: '12px'
+            }}
+          >
             <span>+ Add client</span>
           </div>
         </div>
@@ -74,6 +106,18 @@ export default function Sidebar({
         <button 
           className="sign-out"
           onClick={onLogout}
+          style={{
+            fontFamily: '"Geist Mono", monospace',
+            fontSize: '12px',
+            color: 'rgba(255, 255, 255, 0.4)',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,
+            display: 'inline-block'
+          }}
+          onMouseEnter={(e) => e.target.style.color = '#dc2626'}
+          onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.4)'}
         >
           Sign Out
         </button>
