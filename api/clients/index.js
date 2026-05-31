@@ -82,6 +82,7 @@ export default async function handler(req, res) {
           approachingCount,
           nexusRevenue,
           overallRisk,
+          risk: overallRisk,
           lastUpdated
         });
       }
@@ -116,6 +117,7 @@ export default async function handler(req, res) {
         approachingCount: 0,
         nexusRevenue: 0,
         overallRisk: 'LOW',
+        risk: 'LOW',
         lastUpdated: newClient.created_at
       });
     } catch (error) {

@@ -123,6 +123,7 @@ export default function ClientDetails({ clientId, onBackToDashboard }) {
           notes: data.notes
         }
       }));
+      if (onRefreshClients) onRefreshClients();
       setIsEditOpen(false);
     } catch (err) {
       setEditError(err.message || 'Error updating profile.');
@@ -135,6 +136,7 @@ export default function ClientDetails({ clientId, onBackToDashboard }) {
     try {
       const res = await fetch(`/api/clients/${clientId}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete client');
+      if (onRefreshClients) onRefreshClients();
       onBackToDashboard();
     } catch (err) {
       console.error(err);

@@ -346,10 +346,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .search-input {
-  padding-left: 48px !important;
+  background: #fff !important;
+  border: 1px solid #cbcbcb !important;
+  border-radius: 10px !important;
+  font-family: "Geist Mono", monospace !important;
+  font-size: 13px !important;
+  padding: 10px 16px 10px 44px !important; /* padding-left adjusted for icon */
 }
 
 .filter-select {
+  background: #fff !important;
+  border: 1px solid #cbcbcb !important;
+  border-radius: 10px !important;
+  font-family: "Geist Mono", monospace !important;
+  font-size: 13px !important;
+  padding: 10px 36px 10px 16px !important; /* space for custom dropdown indicator arrow */
   width: 180px !important;
 }
 
@@ -539,28 +550,64 @@ h1, h2, h3, h4, h5, h6 {
   gap: 8px !important;
 }
 
-.sidebar-link {
+.sidebar-item {
+  font-family: "Geist", sans-serif !important;
+  font-size: 14px !important;
+  color: rgba(255,255,255,0.6) !important;
+  padding: 8px 16px !important;
+  cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
-  gap: 12px !important;
-  padding: 12px 16px !important;
-  border-radius: 12px !important;
-  color: rgba(255, 255, 255, 0.6) !important;
-  text-decoration: none !important;
-  font-weight: 500 !important;
+  margin-bottom: 4px !important;
   transition: all 0.2s ease !important;
-  cursor: pointer !important;
 }
 
-.sidebar-link:hover {
+.sidebar-item:hover {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: none !important;
 }
 
-.sidebar-link.active {
+.sidebar-item.active {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: none !important;
   font-weight: 600 !important;
+}
+
+.sidebar-client-item {
+  font-family: "Geist", sans-serif !important;
+  font-size: 13px !important;
+  color: rgba(255,255,255,0.5) !important;
+  padding: 8px 16px 8px 32px !important; /* indented */
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.sidebar-client-item:hover {
+  color: #ffffff !important;
+}
+
+.sidebar-client-item.active {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.sidebar-add-client {
+  font-family: "Geist", sans-serif !important;
+  font-size: 12px !important;
+  color: #005eff !important; /* Zamp blue */
+  padding: 8px 16px 8px 32px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-weight: 600 !important;
+  transition: opacity 0.2s ease !important;
+}
+
+.sidebar-add-client:hover {
+  opacity: 0.8 !important;
 }
 
 .sidebar-user {
@@ -579,27 +626,20 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap !important;
 }
 
-.btn-sidebar-signout {
-  width: 100% !important;
-  padding: 12px 20px !important;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border: 1px solid #ffffff !important;
-  border-radius: 9999px !important; /* Pill Sign Out button */
-  font-size: 13px !important;
-  font-weight: 600 !important;
+.sign-out {
+  font-family: "Geist Mono", monospace !important;
+  font-size: 12px !important;
+  color: rgba(255,255,255,0.4) !important;
+  background: none !important;
+  border: none !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
-  font-family: var(--font-body) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
+  padding: 0 !important;
+  transition: color 0.2s ease !important;
+  display: inline-block !important;
 }
 
-.btn-sidebar-signout:hover {
-  background-color: #e5e5e5 !important;
-  border-color: #e5e5e5 !important;
+.sign-out:hover {
+  color: #dc2626 !important;
 }
 
 /* Loading Spiner */

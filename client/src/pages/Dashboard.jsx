@@ -1,44 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Filter, ShieldAlert } from 'lucide-react';
-import Modal from '../components/Modal';
+import { Search, Filter } from 'lucide-react';
 
-export default function Dashboard({ onSelectClient, accountant }) {
-  const [clients, setClients] = useState([]);
+export default function Dashboard({ onSelectClient, accountant, clients, isLoadingClients, fetchClients, onOpenAddClient }) {
   const [portfolioBrief, setPortfolioBrief] = useState('');
-  const [isLoadingClients, setIsLoadingClients] = useState(true);
   const [isLoadingBrief, setIsLoadingBrief] = useState(true);
   
   // Search & Filter State
   const [searchTerm, setSearchTerm] = useState('');
   const [riskFilter, setRiskFilter] = useState('ALL');
 
-  // Add Client Modal State
-  const [isAddOpen, setIsAddOpen] = useState(false);
-  const [newClientName, setNewClientName] = useState('');
-  const [newClientIndustry, setNewClientIndustry] = useState('E-commerce');
-  const [newClientNotes, setNewClientNotes] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [addError, setAddError] = useState('');
-
-  // Fetch initial data
+  // Fetch portfolio compliance brief on mount
   useEffect(() => {
     fetchClients();
     fetchBrief();
   }, []);
-
-  async function fetchClients() {
-    setIsLoadingClients(true);
-    try {
-      const res = await fetch('/api/clients');
-      if (!res.ok) throw new Error('Failed to fetch clients');
-      const data = await res.json();
-      setClients(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoadingClients(false);
-    }
-  }
 
   async function fetchBrief() {
     setIsLoadingBrief(true);
@@ -54,46 +29,6 @@ export default function Dashboard({ onSelectClient, accountant }) {
     }
   }
 
-  async function handleAddClient(e) {
-    e.preventDefault();
-    if (!newClientName || !newClientIndustry) {
-      setAddError('Client name and industry are required.');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setAddError('');
-
-    try {
-      const res = await fetch('/api/clients', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: newClientName,
-          industry: newClientIndustry,
-          notes: newClientNotes
-        })
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to create client');
-
-      // Append new client and reset state
-      setClients(prev => [data, ...prev]);
-      setIsAddOpen(false);
-      setNewClientName('');
-      setNewClientIndustry('E-commerce');
-      setNewClientNotes('');
-      
-      // Auto navigate to new client details to prompt immediate CSV upload!
-      onSelectClient(data.id);
-    } catch (err) {
-      setAddError(err.message || 'Server error creating client.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
-
   // Calculate high-level cumulative portfolio metrics
   const totalClients = clients.length;
   const activeNexusStates = clients.reduce((acc, c) => acc + (c.nexusCount || 0), 0);
@@ -106,6 +41,14 @@ export default function Dashboard({ onSelectClient, accountant }) {
                           client.industry.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRisk = riskFilter === 'ALL' || client.overallRisk === riskFilter;
     return matchesSearch && matchesRisk;
+  });
+
+  // Sort filtered clients: CRITICAL at the TOP
+  const riskOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
+  const sortedClientsList = [...filteredClients].sort((a, b) => {
+    const aRisk = a.risk || a.overallRisk || 'LOW';
+    const bRisk = b.risk || b.overallRisk || 'LOW';
+    return (riskOrder[aRisk] ?? 99) - (riskOrder[bRisk] ?? 99);
   });
 
   return (
@@ -126,8 +69,8 @@ export default function Dashboard({ onSelectClient, accountant }) {
             Welcome back. Review sales tax nexus exposure for all accounts at <span style={{ color: '#005EFF', fontWeight: 600 }}>{accountant?.firm_name || accountant?.firm}</span>.
           </p>
         </div>
-        <button className="btn btn-primary" onClick={() => setIsAddOpen(true)}>
-          <Plus size={16} /> Onboard New Client
+        <button className="btn btn-primary" onClick={onOpenAddClient}>
+          + Onboard New Client
         </button>
       </div>
 
@@ -222,7 +165,7 @@ export default function Dashboard({ onSelectClient, accountant }) {
           <div className="spinner"></div>
           <p>Retrieving client portfolio data...</p>
         </div>
-      ) : filteredClients.length === 0 ? (
+      ) : sortedClientsList.length === 0 ? (
         <div className="table-container" style={{ padding: '48px', textAlign: 'center', color: 'rgba(0, 0, 0, 0.5)' }}>
           <p style={{ fontSize: '16px', marginBottom: '8px', fontWeight: 600 }}>No client accounts found matching the criteria.</p>
           <p style={{ fontSize: '14px', margin: 0 }}>Click "+ Onboard New Client" to expand your firm portfolio.</p>
@@ -242,7 +185,7 @@ export default function Dashboard({ onSelectClient, accountant }) {
               </tr>
             </thead>
             <tbody>
-              {filteredClients.map(client => {
+              {sortedClientsList.map(client => {
                 let riskClass = 'badge-low';
                 if (client.overallRisk === 'CRITICAL') riskClass = 'badge-critical';
                 else if (client.overallRisk === 'HIGH') riskClass = 'badge-high';
@@ -278,89 +221,6 @@ export default function Dashboard({ onSelectClient, accountant }) {
           </table>
         </div>
       )}
-
-      {/* Add Client Modal */}
-      <Modal isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} title="Onboard New Client">
-        {addError && (
-          <div className="badge-critical" style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '10px 14px',
-            borderRadius: '8px',
-            fontSize: '13px',
-            marginBottom: '16px',
-            textTransform: 'none',
-            letterSpacing: 'normal'
-          }}>
-            <span>{addError}</span>
-          </div>
-        )}
-        
-        <form onSubmit={handleAddClient}>
-          <div className="form-group">
-            <label className="form-label" htmlFor="client-name-input">Client Company Name</label>
-            <input
-              id="client-name-input"
-              type="text"
-              className="form-input"
-              placeholder="e.g. Acme Commerce"
-              value={newClientName}
-              onChange={e => setNewClientName(e.target.value)}
-              required
-              disabled={isSubmitting}
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="form-label" htmlFor="industry-select">Industry Sector</label>
-            <select
-              id="industry-select"
-              className="form-input form-select"
-              value={newClientIndustry}
-              onChange={e => setNewClientIndustry(e.target.value)}
-              disabled={isSubmitting}
-            >
-              <option value="E-commerce">E-commerce</option>
-              <option value="SaaS">SaaS</option>
-              <option value="Retail">Retail</option>
-              <option value="Manufacturing">Manufacturing</option>
-              <option value="Services">Services</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div className="form-group" style={{ marginBottom: '24px' }}>
-            <label className="form-label" htmlFor="notes-textarea">Client Compliance Profile / Notes</label>
-            <textarea
-              id="notes-textarea"
-              className="form-input form-textarea"
-              placeholder="Add key insights (e.g., physical offices in CA, warehouse in TX, drop-shipping models...)"
-              value={newClientNotes}
-              onChange={e => setNewClientNotes(e.target.value)}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => setIsAddOpen(false)}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Onboarding...' : 'Onboard Client'}
-            </button>
-          </div>
-        </form>
-      </Modal>
     </div>
   );
 }
