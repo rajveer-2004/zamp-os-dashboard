@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ClientDetails from './pages/ClientDetails';
-import { LogOut, User } from 'lucide-react';
+import { LogOut, LayoutGrid } from 'lucide-react';
 
 export default function App() {
   const [accountant, setAccountant] = useState(null);
@@ -44,10 +44,10 @@ export default function App() {
 
   if (isCheckingSession) {
     return (
-      <div className="app-container" style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <div className="app-container" style={{ justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100vw', background: '#EFEFEF' }}>
         <div className="spinner-container">
           <div className="spinner"></div>
-          <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Checking secure firm session...</p>
+          <p style={{ fontSize: '14px', color: 'rgba(0, 0, 0, 0.6)' }}>Checking secure firm session...</p>
         </div>
       </div>
     );
@@ -65,39 +65,43 @@ export default function App() {
   // Render Accountant Workspace if authenticated
   return (
     <div className="app-container">
-      {/* Top Navigation Header */}
-      <header className="header">
-        <div className="header-brand" onClick={() => setSelectedClientId(null)} style={{ cursor: 'pointer' }}>
-          ⚡ Zamp Nexus OS
-        </div>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '8px', 
-            fontSize: '14px', 
-            color: 'var(--text-secondary)',
-            background: 'rgba(255, 255, 255, 0.03)',
-            padding: '6px 14px',
-            borderRadius: '20px',
-            border: '1px solid var(--border-color)'
-          }}>
-            <User size={14} style={{ color: 'var(--accent-teal)' }} />
-            <span>{accountant.email}</span>
+      {/* 260px Pure Black Sidebar */}
+      <aside className="sidebar">
+        <div>
+          {/* Logo with Z Parallelogram SVG Mark */}
+          <div className="sidebar-logo" onClick={() => setSelectedClientId(null)} style={{ cursor: 'pointer' }}>
+            <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: '10px' }}>
+              <polygon points="25,80 45,20 75,20 55,80" fill="#005EFF" />
+            </svg>
+            <span>ZAMP NEXUS OS</span>
           </div>
 
+          <nav className="sidebar-nav">
+            <div 
+              className={`sidebar-link ${selectedClientId === null ? 'active' : ''}`}
+              onClick={() => setSelectedClientId(null)}
+            >
+              <LayoutGrid size={16} />
+              <span>Dashboard</span>
+            </div>
+          </nav>
+        </div>
+
+        {/* User context footer */}
+        <div className="sidebar-user">
+          <div className="sidebar-user-email" title={accountant.email}>
+            {accountant.email}
+          </div>
           <button 
-            className="btn btn-secondary" 
-            style={{ padding: '8px 14px', display: 'flex', gap: '6px', fontSize: '13px' }}
+            className="btn-sidebar-signout"
             onClick={handleLogout}
           >
             <LogOut size={14} /> Sign Out
           </button>
         </div>
-      </header>
+      </aside>
 
-      {/* Main Page Area */}
+      {/* Main Page Area (#EFEFEF light background) */}
       <main className="main-content">
         {selectedClientId === null ? (
           <Dashboard 

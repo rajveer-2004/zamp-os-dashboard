@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Filter, ShieldAlert, TrendingUp, Users, DollarSign, Award, MessageSquare } from 'lucide-react';
+import { Plus, Search, Filter, ShieldAlert } from 'lucide-react';
 import Modal from '../components/Modal';
 
 export default function Dashboard({ onSelectClient, accountant }) {
@@ -114,16 +114,16 @@ export default function Dashboard({ onSelectClient, accountant }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '32px',
+        marginBottom: '40px',
         flexWrap: 'wrap',
         gap: '16px'
       }}>
         <div>
-          <h1 style={{ fontSize: '32px', fontWeight: 800, marginBottom: '6px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: 700, letterSpacing: '-0.03em', color: '#000000', marginBottom: '6px' }}>
             Firm Portfolio Dashboard
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
-            Welcome back. Review sales tax nexus exposure for all accounts at <span style={{ color: 'var(--accent-teal)', fontWeight: 600 }}>{accountant?.firm_name}</span>.
+          <p style={{ color: 'rgba(0, 0, 0, 0.5)', fontSize: '15px', margin: 0 }}>
+            Welcome back. Review sales tax nexus exposure for all accounts at <span style={{ color: '#005EFF', fontWeight: 600 }}>{accountant?.firm_name || accountant?.firm}</span>.
           </p>
         </div>
         <button className="btn btn-primary" onClick={() => setIsAddOpen(true)}>
@@ -131,61 +131,61 @@ export default function Dashboard({ onSelectClient, accountant }) {
         </button>
       </div>
 
-      {/* Aggregate Metric Cards Grid */}
+      {/* Aggregate Metric Cards Grid (Zamp White Style) */}
       <div className="metrics-grid">
-        <div className="metric-card glass-panel">
-          <div className="metric-card-icon"><Users size={20} /></div>
-          <div className="metric-value">{isLoadingClients ? '...' : totalClients}</div>
+        <div className="metric-card">
           <div className="metric-label">Active Clients</div>
+          <div className="metric-value">{isLoadingClients ? '...' : totalClients}</div>
         </div>
 
-        <div className="metric-card glass-panel">
-          <div className="metric-card-icon" style={{ color: 'var(--color-critical)' }}><ShieldAlert size={20} /></div>
-          <div className="metric-value" style={{ color: 'var(--color-critical)' }}>{isLoadingClients ? '...' : activeNexusStates}</div>
+        <div className="metric-card">
           <div className="metric-label">Active Nexus States</div>
+          <div className="metric-value" style={{ color: activeNexusStates > 0 ? '#ff3b30' : '#000000' }}>
+            {isLoadingClients ? '...' : activeNexusStates}
+          </div>
         </div>
 
-        <div className="metric-card glass-panel">
-          <div className="metric-card-icon" style={{ color: 'var(--color-high)' }}><DollarSign size={20} /></div>
-          <div className="metric-value">${isLoadingClients ? '...' : totalRevenueAtRisk.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
+        <div className="metric-card">
           <div className="metric-label">Portfolio Revenue at Risk</div>
+          <div className="metric-value">
+            ${isLoadingClients ? '...' : totalRevenueAtRisk.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+          </div>
         </div>
 
-        <div className="metric-card glass-panel">
-          <div className="metric-card-icon" style={{ color: 'var(--color-medium)' }}><TrendingUp size={20} /></div>
-          <div className="metric-value" style={{ color: 'var(--color-medium)' }}>
+        <div className="metric-card">
+          <div className="metric-label">Est. Tax Liability (7% avg)</div>
+          <div className="metric-value">
             ${isLoadingClients ? '...' : estimatedTaxLiability.toLocaleString(undefined, { maximumFractionDigits: 0 })}
           </div>
-          <div className="metric-label">Est. Tax Liability (7% avg)</div>
         </div>
       </div>
 
-      {/* Analyst Memo Brief Section */}
-      <div className="glass-panel brief-card" style={{ padding: '28px', marginBottom: '40px' }}>
-        <div className="brief-header">
-          <div className="brief-icon-tag">
-            <MessageSquare size={18} /> Firm Portfolio Analyst Memo
+      {/* AI Brief Panel (Pure Black Zamp Style) */}
+      <div className="ai-brief-panel">
+        <div className="brief-header" style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="ai-brief-label" style={{ margin: 0 }}>
+            Firm Portfolio Analyst Memo
           </div>
-          <div className="badge badge-low" style={{ textTransform: 'none', letterSpacing: 'normal' }}>
-            ⚡ Powered by Zamp Compliance Intelligence
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.3)', fontWeight: 600, letterSpacing: '0.05em' }}>
+            POWERED BY GEMINI
           </div>
         </div>
         
         {isLoadingBrief ? (
-          <div className="spinner-container" style={{ padding: '10px 0' }}>
-            <div className="spinner"></div>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Analyzing portfolio transactions and generating briefing memo...</p>
+          <div className="spinner-container" style={{ padding: '10px 0', color: 'rgba(255, 255, 255, 0.6)' }}>
+            <div className="spinner" style={{ borderTopColor: '#ffffff' }}></div>
+            <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Analyzing portfolio transactions and generating briefing memo...</p>
           </div>
         ) : (
-          <p className="brief-body">
-            "{portfolioBrief}"
+          <p className="ai-brief-text">
+            {portfolioBrief}
           </p>
         )}
       </div>
 
       {/* Interactive Table Title and Action Filters */}
-      <div style={{ marginBottom: '20px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '16px' }}>Client Accounts Overview</h2>
+      <div style={{ marginBottom: '20px', marginTop: '40px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#000000', marginBottom: '16px', letterSpacing: '-0.02em' }}>Client Accounts Overview</h2>
         
         <div className="filter-bar">
           <div className="search-input-wrapper">
@@ -200,7 +200,7 @@ export default function Dashboard({ onSelectClient, accountant }) {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Filter size={16} style={{ color: 'var(--text-secondary)' }} />
+            <Filter size={16} style={{ color: 'rgba(0, 0, 0, 0.4)' }} />
             <select
               className="form-input form-select filter-select"
               value={riskFilter}
@@ -216,19 +216,19 @@ export default function Dashboard({ onSelectClient, accountant }) {
         </div>
       </div>
 
-      {/* Clients Listing Table */}
+      {/* Clients Listing Table (Light Clean Style) */}
       {isLoadingClients ? (
-        <div className="glass-panel spinner-container">
+        <div className="table-container spinner-container" style={{ minHeight: '200px' }}>
           <div className="spinner"></div>
           <p>Retrieving client portfolio data...</p>
         </div>
       ) : filteredClients.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '48px', textAlign: 'center', color: 'var(--text-secondary)' }}>
-          <p style={{ fontSize: '16px', marginBottom: '8px' }}>No client accounts found matching the criteria.</p>
-          <p style={{ fontSize: '14px' }}>Click "+ Onboard New Client" to expand your firm portfolio.</p>
+        <div className="table-container" style={{ padding: '48px', textAlign: 'center', color: 'rgba(0, 0, 0, 0.5)' }}>
+          <p style={{ fontSize: '16px', marginBottom: '8px', fontWeight: 600 }}>No client accounts found matching the criteria.</p>
+          <p style={{ fontSize: '14px', margin: 0 }}>Click "+ Onboard New Client" to expand your firm portfolio.</p>
         </div>
       ) : (
-        <div className="table-container glass-panel">
+        <div className="table-container">
           <table className="client-table">
             <thead>
               <tr>
@@ -250,24 +250,24 @@ export default function Dashboard({ onSelectClient, accountant }) {
 
                 return (
                   <tr key={client.id} onClick={() => onSelectClient(client.id)}>
-                    <td style={{ fontWeight: 600, color: '#FFF' }}>{client.name}</td>
-                    <td style={{ color: 'var(--text-secondary)' }}>{client.industry}</td>
+                    <td style={{ fontWeight: 600, color: '#000000' }}>{client.name}</td>
+                    <td style={{ color: 'rgba(0, 0, 0, 0.6)' }}>{client.industry}</td>
                     <td>
                       <span className={`badge ${riskClass}`}>{client.overallRisk}</span>
                     </td>
-                    <td style={{ textAlign: 'center', fontWeight: 600, color: client.nexusCount > 0 ? 'var(--color-critical)' : 'var(--text-primary)' }}>
+                    <td style={{ textAlign: 'center', fontWeight: 600, color: client.nexusCount > 0 ? '#ff3b30' : '#000000' }}>
                       {client.nexusCount}
                     </td>
-                    <td style={{ textAlign: 'center', fontWeight: 500, color: client.approachingCount > 0 ? 'var(--color-medium)' : 'var(--text-secondary)' }}>
+                    <td style={{ textAlign: 'center', fontWeight: 500, color: client.approachingCount > 0 ? '#b79500' : 'rgba(0, 0, 0, 0.4)' }}>
                       {client.approachingCount}
                     </td>
-                    <td style={{ textAlign: 'right', fontWeight: 600, color: client.nexusRevenue > 0 ? '#FFF' : 'var(--text-secondary)' }}>
+                    <td style={{ textAlign: 'right', fontWeight: 600, color: '#000000' }}>
                       {client.nexusRevenue > 0 ? `$${client.nexusRevenue.toLocaleString()}` : '$0'}
                     </td>
-                    <td style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>
+                    <td style={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: '13px' }}>
                       {client.latestSnapshot ? client.latestSnapshot.period_label : (
-                        <span style={{ color: 'var(--accent-teal)', fontStyle: 'italic', fontWeight: 500 }}>
-                          ⚠️ No snapshot uploaded
+                        <span style={{ color: '#005EFF', fontWeight: 500 }}>
+                          No snapshot uploaded
                         </span>
                       )}
                     </td>

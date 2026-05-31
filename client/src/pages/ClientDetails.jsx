@@ -256,7 +256,7 @@ Georgia,35000,45`;
 
   if (isLoadingDetails && !details) {
     return (
-      <div className="glass-panel spinner-container" style={{ minHeight: '300px' }}>
+      <div className="table-container spinner-container" style={{ minHeight: '300px' }}>
         <div className="spinner"></div>
         <p>Loading compliance profile details...</p>
       </div>
@@ -279,10 +279,10 @@ Georgia,35000,45`;
       {/* Breadcrumbs */}
       <div className="breadcrumb">
         <span className="breadcrumb-link" onClick={onBackToDashboard}>
-          <ArrowLeft size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> 
+          <ArrowLeft size={12} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> 
           Back to Portfolio
         </span>
-        <ChevronRight size={14} />
+        <ChevronRight size={12} />
         <span>Client Profile</span>
       </div>
 
@@ -290,15 +290,15 @@ Georgia,35000,45`;
       <div className="client-header-area">
         <div className="client-title-block">
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <h1 className="client-name-title">{client?.name}</h1>
-            <span className={`badge ${overallRiskBadge}`} style={{ fontSize: '14px', padding: '6px 14px' }}>
+            <h1 className="client-name-title" style={{ fontSize: '32px', fontWeight: 700, color: '#000000', margin: 0, letterSpacing: '-0.03em' }}>{client?.name}</h1>
+            <span className={`badge ${overallRiskBadge}`} style={{ fontSize: '12px', padding: '6px 14px' }}>
               {client?.overallRisk} Exposure
             </span>
           </div>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '6px' }}>
-            Sector: <span style={{ color: '#FFF', fontWeight: 600 }}>{client?.industry}</span> 
+          <p style={{ color: 'rgba(0, 0, 0, 0.5)', fontSize: '15px', marginTop: '6px', margin: '6px 0 0 0' }}>
+            Sector: <span style={{ color: '#000000', fontWeight: 600 }}>{client?.industry}</span> 
             {activeSnapshot && (
-              <> | Evaluating Snapshot: <span style={{ color: 'var(--accent-teal)', fontWeight: 600 }}>{activeSnapshot.period_label}</span></>
+              <> | Evaluating Snapshot: <span style={{ color: '#005EFF', fontWeight: 600 }}>{activeSnapshot.period_label}</span></>
             )}
           </p>
         </div>
@@ -318,11 +318,11 @@ Georgia,35000,45`;
 
       {/* Notes / Subheader Area */}
       {client?.notes && (
-        <div className="glass-panel" style={{ padding: '16px 24px', marginBottom: '32px', borderLeft: '3px solid var(--accent-indigo)' }}>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '4px' }}>
-            <Info size={14} /> Compliance Advisor Notes
+        <div className="compliance-notes-box">
+          <div className="compliance-notes-title">
+            <Info size={13} /> Compliance Advisor Notes
           </div>
-          <p style={{ fontSize: '14px', color: '#D1D5DB' }}>{client.notes}</p>
+          <p style={{ fontSize: '14px', color: '#333333', margin: 0, lineHeight: 1.5 }}>{client.notes}</p>
         </div>
       )}
 
@@ -331,13 +331,13 @@ Georgia,35000,45`;
         
         {/* Left Column: Snapshot History Navigation */}
         <div className="sidebar-section">
-          <div className="glass-panel" style={{ padding: '24px' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Calendar size={16} /> Snapshot History
+          <div style={{ background: '#ffffff', border: '1px solid #cbcbcb', borderRadius: '16px', padding: '24px', boxSizing: 'border-box' }}>
+            <h3 style={{ fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'rgba(0, 0, 0, 0.6)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', margin: '0 0 16px 0' }}>
+              <Calendar size={15} /> Snapshot History
             </h3>
 
             {snapshotHistory && snapshotHistory.length === 0 ? (
-              <p style={{ fontSize: '13px', color: 'var(--text-muted)', textAlign: 'center', padding: '20px 0' }}>
+              <p style={{ fontSize: '13px', color: 'rgba(0, 0, 0, 0.4)', textAlign: 'center', padding: '20px 0', margin: 0 }}>
                 No upload history found.
               </p>
             ) : (
@@ -360,14 +360,14 @@ Georgia,35000,45`;
                       onClick={() => setActiveSnapshotId(snap.id)}
                     >
                       <div className="snapshot-item-header">
-                        <span style={{ color: isActive ? 'var(--accent-teal)' : '#FFF' }}>{snap.period_label}</span>
+                        <span style={{ color: isActive ? '#005EFF' : '#000000' }}>{snap.period_label}</span>
                         {diffIcon}
                       </div>
                       <div className="snapshot-item-stats">
                         <span>Nexus: <strong>{snap.nexusCount}</strong></span>
                         <span>Approaching: <strong>{snap.approachingCount}</strong></span>
                       </div>
-                      <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '6px' }}>
+                      <div style={{ fontSize: '10px', color: 'rgba(0, 0, 0, 0.4)', marginTop: '6px' }}>
                         Uploaded: {new Date(snap.uploaded_at).toLocaleDateString()}
                       </div>
                     </div>
@@ -378,28 +378,28 @@ Georgia,35000,45`;
           </div>
         </div>
 
-        {/* Right Column: Key Details, AI Memo, Deadlines, and Gauges */}
+        {/* Right Column: Key Details, AI Memo, Deadlines, and Breakdown */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           
-          {/* AI Advisor Memo Card */}
-          <div className="glass-panel brief-card" style={{ padding: '28px' }}>
-            <div className="brief-header">
-              <div className="brief-icon-tag">
-                <FileText size={18} /> Compliance advisory Memo
+          {/* AI Advisor Memo Card (Black Zamp Style) */}
+          <div className="ai-brief-panel">
+            <div className="brief-header" style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="ai-brief-label" style={{ margin: 0 }}>
+                Compliance Advisory Memo
               </div>
-              <div className="badge badge-low" style={{ textTransform: 'none', letterSpacing: 'normal' }}>
-                ⚡ {activeSnapshot?.period_label || 'Preview'} Report
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.3)', fontWeight: 600, letterSpacing: '0.05em' }}>
+                POWERED BY GEMINI
               </div>
             </div>
             
             {isLoadingBrief ? (
-              <div className="spinner-container" style={{ padding: '8px 0' }}>
-                <div className="spinner"></div>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Reviewing threshold exposure levels and writing memo...</p>
+              <div className="spinner-container" style={{ padding: '8px 0', color: 'rgba(255, 255, 255, 0.6)' }}>
+                <div className="spinner" style={{ borderTopColor: '#ffffff' }}></div>
+                <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Reviewing threshold exposure levels and writing memo...</p>
               </div>
             ) : (
-              <p className="brief-body">
-                "{clientBrief}"
+              <p className="ai-brief-text">
+                {clientBrief}
               </p>
             )}
           </div>
@@ -408,18 +408,18 @@ Georgia,35000,45`;
             <>
               {/* Triggered Nexus (Filing Deadlines) Area */}
               <div>
-                <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <ShieldCheck size={20} style={{ color: 'var(--color-critical)' }} /> Triggered Nexus &amp; Filing Deadlines
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
+                  <ShieldCheck size={20} style={{ color: '#ff3b30' }} /> Triggered Nexus &amp; Filing Deadlines
                 </h3>
 
                 {nexusSchedules.length === 0 ? (
-                  <div className="glass-panel" style={{ padding: '24px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                  <div className="table-container" style={{ padding: '24px', textAlign: 'center', color: 'rgba(0, 0, 0, 0.5)' }}>
                     No statutory thresholds triggered in this period. Great compliance standing!
                   </div>
                 ) : (
                   <div className="exposure-card-list">
                     {nexusSchedules.map(sch => (
-                      <div key={sch.state} className="glass-panel exposure-card" style={{ borderLeft: '4px solid var(--color-critical)' }}>
+                      <div key={sch.state} className="exposure-card" style={{ borderLeft: '4px solid #ff3b30' }}>
                         <div className="exposure-state-name">
                           📍 {sch.state}
                         </div>
@@ -428,11 +428,11 @@ Georgia,35000,45`;
                           <div className="exposure-metric-lbl">Revenue ({sch.transactions} Txns)</div>
                         </div>
                         <div>
-                          <div className="exposure-metric-val" style={{ color: 'var(--accent-teal)', fontWeight: 600 }}>{sch.frequency}</div>
+                          <div className="exposure-metric-val" style={{ color: '#005EFF', fontWeight: 600 }}>{sch.frequency}</div>
                           <div className="exposure-metric-lbl">Filing Frequency</div>
                         </div>
                         <div>
-                          <div className="exposure-metric-val" style={{ color: 'var(--color-critical)', fontWeight: 700 }}>
+                          <div className="exposure-metric-val" style={{ color: '#ff3b30', fontWeight: 700 }}>
                             {new Date(sch.registerBy).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                           </div>
                           <div className="exposure-metric-lbl">Register By (30 Days)</div>
@@ -443,14 +443,14 @@ Georgia,35000,45`;
                 )}
               </div>
 
-              {/* Approaching Exposure (Progress/Gauges) Area */}
+              {/* Approaching Exposure (Progress) Area */}
               <div>
-                <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <AlertCircle size={20} style={{ color: 'var(--color-medium)' }} /> High Risk &amp; Approaching Thresholds
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
+                  <AlertCircle size={20} style={{ color: '#ff9500' }} /> High Risk &amp; Approaching Thresholds
                 </h3>
 
                 {approachingSchedules.length === 0 ? (
-                  <div className="glass-panel" style={{ padding: '24px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                  <div className="table-container" style={{ padding: '24px', textAlign: 'center', color: 'rgba(0, 0, 0, 0.5)' }}>
                     No evaluated states are currently approaching limits (40% - 99%).
                   </div>
                 ) : (
@@ -461,10 +461,10 @@ Georgia,35000,45`;
                       else if (sch.maxPct >= 40) colorClass = 'progress-fill-medium';
 
                       return (
-                        <div key={sch.state} className="glass-panel" style={{ padding: '20px' }}>
+                        <div key={sch.state} style={{ background: '#ffffff', border: '1px solid #cbcbcb', borderRadius: '16px', padding: '20px', boxSizing: 'border-box' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                            <span style={{ fontWeight: 700, fontSize: '15px' }}>📍 {sch.state}</span>
-                            <span style={{ fontWeight: 700, fontSize: '14px', color: sch.maxPct >= 80 ? 'var(--color-high)' : 'var(--color-medium)' }}>
+                            <span style={{ fontWeight: 700, fontSize: '15px', color: '#000000' }}>📍 {sch.state}</span>
+                            <span style={{ fontWeight: 700, fontSize: '14px', color: sch.maxPct >= 80 ? '#ff9500' : '#b79500' }}>
                               {sch.maxPct}% of Threshold
                             </span>
                           </div>
@@ -476,9 +476,9 @@ Georgia,35000,45`;
                             />
                           </div>
 
-                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-secondary)', flexWrap: 'wrap', gap: '8px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'rgba(0, 0, 0, 0.5)', flexWrap: 'wrap', gap: '8px' }}>
                             <span>Current: <strong>${sch.revenue.toLocaleString()}</strong> ({sch.transactions} Txns)</span>
-                            <span style={{ color: '#F97316' }}>
+                            <span style={{ color: '#ff9500', fontWeight: 600 }}>
                               Required Gap: <strong>${sch.revGap.toLocaleString()}</strong> or <strong>{sch.txGap}</strong> Txns
                             </span>
                           </div>
@@ -491,11 +491,11 @@ Georgia,35000,45`;
 
               {/* Complete State Breakdown Table */}
               <div>
-                <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
                   <LayoutGrid size={20} /> All States Breakdown
                 </h3>
 
-                <div className="table-container glass-panel" style={{ marginTop: '0' }}>
+                <div className="table-container">
                   <table className="client-table">
                     <thead>
                       <tr>
@@ -515,9 +515,9 @@ Georgia,35000,45`;
 
                         return (
                           <tr key={row.state} style={{ cursor: 'default' }}>
-                            <td style={{ fontWeight: 600 }}>{row.state}</td>
-                            <td style={{ textAlign: 'right', fontWeight: 500 }}>${row.revenue.toLocaleString()}</td>
-                            <td style={{ textAlign: 'center', fontWeight: 500 }}>{row.transactions}</td>
+                            <td style={{ fontWeight: 600, color: '#000000' }}>{row.state}</td>
+                            <td style={{ textAlign: 'right', fontWeight: 500, color: '#000000' }}>${row.revenue.toLocaleString()}</td>
+                            <td style={{ textAlign: 'center', fontWeight: 500, color: '#000000' }}>{row.transactions}</td>
                             <td>
                               <span className={`badge ${isNexus ? 'badge-critical' : 'badge-low'}`}>
                                 {isNexus ? 'YES' : 'NO'}
@@ -535,10 +535,10 @@ Georgia,35000,45`;
               </div>
             </>
           ) : (
-            <div className="glass-panel" style={{ padding: '60px 40px', textAlign: 'center' }}>
-              <Upload size={48} style={{ color: 'var(--text-muted)', marginBottom: '16px' }} />
-              <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '8px' }}>No Transaction Data Uploaded</h4>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', maxWidth: '440px', margin: '0 auto 24px' }}>
+            <div className="table-container" style={{ padding: '60px 40px', textAlign: 'center' }}>
+              <Upload size={48} style={{ color: 'rgba(0, 0, 0, 0.3)', marginBottom: '16px' }} />
+              <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '8px', margin: '0 0 8px 0' }}>No Transaction Data Uploaded</h4>
+              <p style={{ color: 'rgba(0, 0, 0, 0.5)', fontSize: '14px', maxWidth: '440px', margin: '0 auto 24px' }}>
                 Analyze this client's state-by-state sales tax exposure by uploading a CSV transaction report.
               </p>
               <button className="btn btn-primary" onClick={() => setIsUploadOpen(true)}>
@@ -614,8 +614,8 @@ Georgia,35000,45`;
 
       {/* Delete Client Confirmation Modal */}
       <Modal isOpen={isDeleteOpen} onClose={() => setIsDeleteOpen(false)} title="Confirm Account Deletion">
-        <p style={{ fontSize: '15px', color: '#E5E7EB', marginBottom: '24px' }}>
-          Are you sure you want to permanently delete <strong style={{ color: '#FFF' }}>{client?.name}</strong> and all associated upload histories? This action is irreversible.
+        <p style={{ fontSize: '15px', color: '#333333', marginBottom: '24px', margin: '0 0 24px 0', lineHeight: 1.5 }}>
+          Are you sure you want to permanently delete <strong style={{ color: '#000000' }}>{client?.name}</strong> and all associated upload histories? This action is irreversible.
         </p>
 
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
@@ -656,7 +656,7 @@ Georgia,35000,45`;
             <textarea
               id="csv-textarea"
               className="form-input form-textarea"
-              style={{ minHeight: '140px', fontFamily: 'monospace', fontSize: '13px', color: 'var(--accent-teal)' }}
+              style={{ minHeight: '140px', fontFamily: 'monospace', fontSize: '13px' }}
               placeholder="state,revenue,transactions&#10;California,142000,310&#10;Washington,112000,220"
               value={rawCsv}
               onChange={e => setRawCsv(e.target.value)}
@@ -665,7 +665,7 @@ Georgia,35000,45`;
             />
           </div>
 
-          {/* Premium copy-paste helper card */}
+          {/* Template copy-paste helper card */}
           <div className="sample-csv-box" style={{ marginBottom: '24px' }}>
             <div className="sample-csv-title">
               <span>📋 Template Copy Helper</span>
@@ -675,7 +675,7 @@ Georgia,35000,45`;
                 style={{ padding: '4px 8px', fontSize: '11px', display: 'flex', gap: '4px' }}
                 onClick={handleCopySample}
               >
-                {copied ? <Check size={12} style={{ color: 'var(--color-low)' }} /> : <Copy size={12} />}
+                {copied ? <Check size={12} style={{ color: '#34c759' }} /> : <Copy size={12} />}
                 {copied ? 'Copied!' : 'Copy Template'}
               </button>
             </div>
