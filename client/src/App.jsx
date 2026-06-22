@@ -138,6 +138,8 @@ export default function App() {
 
   return (
     <div className="app-container">
+      <div className="blob-top-left" />
+      <div className="blob-bottom-right" />
       <Sidebar 
         clients={clients}
         selectedClientId={selectedClientId}

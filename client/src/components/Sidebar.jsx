@@ -23,7 +23,7 @@ export default function Sidebar({
         {/* Logo with Z Parallelogram SVG Mark */}
         <div className="sidebar-logo" onClick={() => onSelectClient(null)} style={{ cursor: 'pointer' }}>
           <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: '10px' }}>
-            <polygon points="25,80 45,20 75,20 55,80" fill="#005EFF" />
+            <polygon points="25,80 45,20 75,20 55,80" fill="#FF6B35" />
           </svg>
           <span style={{ fontSize: '18px', fontWeight: 800 }}>Zamp Nexus OS</span>
         </div>
@@ -34,14 +34,10 @@ export default function Sidebar({
             className={`sidebar-item ${selectedClientId === null ? 'active' : ''}`}
             onClick={() => onSelectClient(null)}
             style={{
-              color: selectedClientId === null ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
-              background: 'transparent',
-              fontWeight: selectedClientId === null ? 600 : 400,
               padding: '8px 16px',
               display: 'flex',
               alignItems: 'center',
-              cursor: 'pointer',
-              borderRadius: '0'
+              cursor: 'pointer'
             }}
           >
             <span>Dashboard</span>
@@ -57,9 +53,6 @@ export default function Sidebar({
                 className={`sidebar-client-item ${isActive ? 'active' : ''}`}
                 onClick={() => onSelectClient(c.id)}
                 style={{
-                  color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.5)',
-                  background: 'transparent',
-                  fontWeight: isActive ? 600 : 400,
                   padding: '8px 16px 8px 32px',
                   display: 'flex',
                   alignItems: 'center',
@@ -84,7 +77,7 @@ export default function Sidebar({
             className="sidebar-add-client" 
             onClick={onOpenAddClient}
             style={{
-              color: '#005eff',
+              color: '#FF6B35',
               fontWeight: 600,
               padding: '8px 16px 8px 32px',
               display: 'flex',

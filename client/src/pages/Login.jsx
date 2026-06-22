@@ -52,9 +52,9 @@ export default function Login({ onLoginSuccess }) {
           display: flex;
           min-height: 100vh;
           width: 100vw;
-          background-color: #EFEFEF;
-          font-family: 'Geist', 'Inter', -apple-system, sans-serif;
-          color: #111111;
+          background-color: transparent;
+          font-family: var(--font-body);
+          color: #ffffff;
           overflow: hidden;
           position: fixed;
           top: 0;
@@ -68,14 +68,16 @@ export default function Login({ onLoginSuccess }) {
           flex-direction: column;
           justify-content: center;
           padding: 40px 60px;
-          background-color: #EFEFEF;
-          box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
+          background-color: rgba(13, 13, 13, 0.4);
+          backdrop-filter: blur(20px);
+          border-right: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
           z-index: 10;
         }
 
         .login-column-brand {
           flex: 1.4;
-          background: linear-gradient(135deg, #0A0F1E 0%, #151C33 100%);
+          background: transparent;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -93,8 +95,8 @@ export default function Login({ onLoginSuccess }) {
           top: -50%;
           left: -50%;
           background-image: 
-            radial-gradient(circle at 80% 20%, rgba(0, 245, 212, 0.05) 0%, transparent 40%),
-            radial-gradient(circle at 20% 80%, rgba(67, 97, 238, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.05) 0%, transparent 40%),
+            radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.03) 0%, transparent 50%),
             linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
           background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
@@ -103,7 +105,7 @@ export default function Login({ onLoginSuccess }) {
 
         .login-form-wrapper {
           width: 100%;
-          maxWidth: 400px;
+          max-width: 400px;
           margin: 0 auto;
         }
 
@@ -114,7 +116,8 @@ export default function Login({ onLoginSuccess }) {
           font-size: 20px;
           font-weight: 800;
           letter-spacing: -0.03em;
-          color: #000000;
+          color: #ffffff;
+          font-family: var(--font-display);
           margin-bottom: 40px;
         }
 
@@ -122,13 +125,14 @@ export default function Login({ onLoginSuccess }) {
           font-size: 32px;
           font-weight: 700;
           letter-spacing: -0.04em;
-          color: #000000;
+          color: #ffffff;
+          font-family: var(--font-display);
           margin-bottom: 8px;
           line-height: 1.15;
         }
 
         .login-header-subtitle {
-          color: #666666;
+          color: rgba(255, 255, 255, 0.6);
           font-size: 15px;
           margin-bottom: 32px;
           font-weight: 400;
@@ -144,7 +148,7 @@ export default function Login({ onLoginSuccess }) {
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.05em;
-          color: #333333;
+          color: rgba(255, 255, 255, 0.6);
           margin-bottom: 8px;
         }
 
@@ -157,7 +161,7 @@ export default function Login({ onLoginSuccess }) {
           left: 16px;
           top: 50%;
           transform: translateY(-50%);
-          color: #999999;
+          color: rgba(255, 255, 255, 0.4);
           pointer-events: none;
           transition: color 0.2s ease;
         }
@@ -165,10 +169,10 @@ export default function Login({ onLoginSuccess }) {
         .login-input {
           width: 100%;
           padding: 14px 16px 14px 46px;
-          background-color: #FFFFFF;
-          border: 1px solid #DDDDDD;
+          background-color: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 12px;
-          color: #000000;
+          color: #ffffff;
           font-size: 14px;
           font-family: inherit;
           outline: none;
@@ -177,19 +181,19 @@ export default function Login({ onLoginSuccess }) {
         }
 
         .login-input:focus {
-          border-color: #000000;
-          box-shadow: 0 0 0 1px #000000;
+          border-color: var(--color-orange);
+          box-shadow: 0 0 0 1px var(--color-orange);
         }
 
         .login-input:focus + .login-input-icon {
-          color: #000000;
+          color: var(--color-orange);
         }
 
         /* Black Pill Button */
         .btn-pill-black {
           width: 100%;
           padding: 14px 28px;
-          background-color: #000000;
+          background-color: var(--color-orange);
           color: #FFFFFF;
           border: none;
           border-radius: 9999px;
@@ -198,7 +202,7 @@ export default function Login({ onLoginSuccess }) {
           font-family: inherit;
           cursor: pointer;
           transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -207,9 +211,9 @@ export default function Login({ onLoginSuccess }) {
         }
 
         .btn-pill-black:hover {
-          background-color: #222222;
+          background-color: #e55a2b;
           transform: translateY(-1px);
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 6px 16px rgba(255, 107, 53, 0.35);
         }
 
         .btn-pill-black:active {
@@ -217,7 +221,7 @@ export default function Login({ onLoginSuccess }) {
         }
 
         .btn-pill-black:disabled {
-          background-color: #888888;
+          background-color: rgba(255, 107, 53, 0.5);
           cursor: not-allowed;
           transform: none;
           box-shadow: none;
@@ -228,8 +232,8 @@ export default function Login({ onLoginSuccess }) {
           width: 100%;
           padding: 12px 24px;
           background-color: transparent;
-          color: #111111;
-          border: 1px solid #CCCCCC;
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 9999px;
           font-size: 13px;
           font-weight: 600;
@@ -243,13 +247,13 @@ export default function Login({ onLoginSuccess }) {
         }
 
         .btn-pill-outline:hover:not(:disabled) {
-          border-color: #000000;
-          background-color: rgba(0, 0, 0, 0.03);
+          border-color: #ffffff;
+          background-color: rgba(255, 255, 255, 0.05);
         }
 
         .login-divider {
           height: 1px;
-          background-color: #E0E0E0;
+          background-color: rgba(255, 255, 255, 0.1);
           margin: 32px 0 24px 0;
           position: relative;
         }
@@ -259,19 +263,19 @@ export default function Login({ onLoginSuccess }) {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          background-color: #EFEFEF;
+          background-color: rgba(13, 13, 13, 0.95);
           padding: 0 12px;
           font-size: 11px;
-          color: #888888;
+          color: rgba(255, 255, 255, 0.4);
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
 
         .login-alert {
-          background-color: #FFF0F0;
-          border: 1px solid #FFE0E0;
-          color: #D32F2F;
+          background-color: rgba(255, 59, 48, 0.15);
+          border: 1px solid rgba(255, 59, 48, 0.3);
+          color: #ff453a;
           padding: 12px 16px;
           border-radius: 12px;
           font-size: 13px;
@@ -297,7 +301,7 @@ export default function Login({ onLoginSuccess }) {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #00F5D4;
+          color: var(--color-orange);
           margin-bottom: 20px;
         }
 
@@ -307,10 +311,11 @@ export default function Login({ onLoginSuccess }) {
           letter-spacing: -0.04em;
           line-height: 1.15;
           margin-bottom: 20px;
+          font-family: var(--font-display);
         }
 
         .brand-desc {
-          color: #A0AEC0;
+          color: rgba(255, 255, 255, 0.6);
           font-size: 16px;
           line-height: 1.6;
           margin-bottom: 40px;
@@ -318,12 +323,12 @@ export default function Login({ onLoginSuccess }) {
 
         /* High-Fidelity Interactive Preview Widget */
         .nexus-preview-card {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.09);
           border-radius: 16px;
           padding: 24px;
           backdrop-filter: blur(10px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.07);
           width: 100%;
         }
 
@@ -332,7 +337,7 @@ export default function Login({ onLoginSuccess }) {
           justify-content: space-between;
           align-items: center;
           margin-bottom: 20px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
           padding-bottom: 12px;
         }
 
@@ -348,9 +353,10 @@ export default function Login({ onLoginSuccess }) {
         .preview-status {
           font-size: 11px;
           font-weight: 700;
-          color: #00F5D4;
+          color: var(--color-orange-pill-text);
           text-transform: uppercase;
-          background: rgba(0, 245, 212, 0.1);
+          background: var(--color-orange-pill-bg);
+          border: 1px solid var(--color-orange-pill-border);
           padding: 4px 10px;
           border-radius: 20px;
         }
@@ -387,21 +393,21 @@ export default function Login({ onLoginSuccess }) {
         .preview-metric-label {
           display: block;
           font-size: 9px;
-          color: #718096;
+          color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
           margin-top: 2px;
         }
 
         .status-triggered {
-          color: #FF5A5F;
+          color: #ff3b30;
         }
 
         .status-near {
-          color: #F18F01;
+          color: #ff9500;
         }
 
         .status-safe {
-          color: #00F5D4;
+          color: #34c759;
         }
 
         @media (max-width: 900px) {
@@ -416,10 +422,11 @@ export default function Login({ onLoginSuccess }) {
           .login-column-form {
             padding: 50px 30px;
             min-height: 100vh;
+            background-color: #0d0d0d;
           }
 
           .login-column-brand {
-            display: none; /* Hide brand panel on smaller screens for ultra clean mobile form entry */
+            display: none;
           }
         }
       `}</style>
@@ -533,7 +540,7 @@ export default function Login({ onLoginSuccess }) {
           <div className="nexus-preview-card">
             <div className="preview-title-bar">
               <span className="preview-title">
-                <ShieldCheck size={18} style={{ color: '#00F5D4' }} />
+                <ShieldCheck size={18} style={{ color: '#FF6B35' }} />
                 Smith &amp; Associates • Client Portfolio
               </span>
               <span className="preview-status">Live Exposure</span>

@@ -1,4 +1,6 @@
-/* Zamp Compliance OS Actual Design System */
+/* WizCommerce Branding Design System Update */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @font-face {
   font-family: "Geist";
   src: url("https://www.zamp.ai/_next/static/media/22a5144ee8d83bca-s.p.woff2") format("woff2");
@@ -11,10 +13,16 @@
 }
 
 :root {
-  --bg-main: #EFEFEF;
-  --font-body: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --bg-main: #0d0d0d;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: "Geist Mono", monospace;
-  --border-color: #cbcbcb;
+  --border-color: rgba(255, 255, 255, 0.12);
+  --color-orange: #FF6B35;
+  --color-orange-glow: rgba(255, 107, 53, 0.15);
+  --color-orange-pill-bg: rgba(255, 107, 53, 0.12);
+  --color-orange-pill-border: rgba(255, 107, 53, 0.25);
+  --color-orange-pill-text: #ffb899;
 }
 
 /* Global Reset & Body Background */
@@ -25,8 +33,8 @@
 }
 
 body {
-  background-color: #EFEFEF !important;
-  color: #000000 !important;
+  background-color: #0d0d0d !important;
+  color: #ffffff !important;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,14 +45,46 @@ body {
 .app-container {
   display: flex;
   min-height: 100vh;
-  background-color: #EFEFEF !important;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(255, 107, 53, 0.06) 0%, transparent 45%),
+    radial-gradient(ellipse at 100% 100%, rgba(255, 107, 53, 0.04) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(20, 20, 20, 0.9) 0%, transparent 100%),
+    linear-gradient(160deg, #0d0d0d 0%, #111111 50%, #0a0a0a 100%);
   width: 100vw;
+  position: relative;
+}
+
+/* Ambient Blobs styling */
+.blob-top-left {
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: rgba(255, 107, 53, 0.05);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob-bottom-right {
+  position: fixed;
+  bottom: -100px;
+  right: -100px;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: rgba(255, 107, 53, 0.03);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Nav & Top bar rules */
 nav, header.header {
-  background: #EFEFEF !important;
-  border-bottom: 1px solid #cbcbcb !important;
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-color) !important;
   height: 72px !important;
   display: flex !important;
   align-items: center !important;
@@ -53,8 +93,8 @@ nav, header.header {
 }
 
 .nav-text {
-  color: #000000 !important;
-  font-family: "Geist", sans-serif !important;
+  color: #ffffff !important;
+  font-family: var(--font-body) !important;
 }
 
 /* Sidebar Layout */
@@ -73,23 +113,37 @@ nav, header.header {
   color: #ffffff !important;
   z-index: 1000 !important;
   box-sizing: border-box !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .main-content {
   flex: 1 !important;
   margin-left: 260px !important;
-  background: #EFEFEF !important;
+  background: transparent !important;
   padding: 48px !important;
   min-height: 100vh !important;
   box-sizing: border-box !important;
-  color: #000000 !important;
+  color: #ffffff !important;
+  position: relative;
+  z-index: 10;
 }
 
 /* Heading Sizes */
+h1, h2, h3, .page-title, .sidebar-logo { 
+  font-family: var(--font-display); 
+}
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-body);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+}
+
+/* Glass Card Definition */
+.glass-panel, .metric-card, .table-container, .snapshot-item, .exposure-card {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 /* Metric Cards */
@@ -101,11 +155,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .metric-card {
-  background: #ffffff !important;
-  border: 1px solid #cbcbcb !important;
   border-radius: 16px !important;
   padding: 24px !important;
-  box-shadow: none !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 8px !important;
@@ -113,10 +164,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .metric-value {
-  font-family: "Geist", system-ui, sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 36px !important;
   font-weight: 400 !important;
-  color: #000000 !important;
+  color: #ffffff !important;
   line-height: 1.1 !important;
 }
 
@@ -124,30 +175,33 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Geist Mono", monospace !important;
   font-size: 11px !important;
   text-transform: uppercase !important;
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
   letter-spacing: 0.05em !important;
   order: -1 !important; /* Label on top */
 }
 
 /* AI Brief Panel */
 .ai-brief-panel {
-  background: #000000 !important;   /* pure black */
-  border-left: 3px solid #005eff !important;  /* Zamp blue accent */
+  background: rgba(0, 0, 0, 0.4) !important;   /* pure black glass styling */
+  border-left: 3px solid var(--color-orange) !important;  /* WizCommerce accent */
   border-radius: 16px !important;
   padding: 28px !important;
   color: white !important;
   box-sizing: border-box !important;
   margin-bottom: 32px !important;
-  box-shadow: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03) !important;
 }
 
 .ai-brief-text {
-  font-family: "Geist", system-ui, arial, sans-serif !important;  /* NOT mono, NOT italic */
+  font-family: var(--font-body) !important;
   font-size: 15px !important;
   font-weight: 400 !important;
   line-height: 1.8 !important;
   color: rgba(255, 255, 255, 0.85) !important;
-  font-style: normal !important;  /* remove the italic */
+  font-style: normal !important;
 }
 
 .ai-brief-label {
@@ -176,42 +230,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  background-color: #000000 !important;
+  background-color: var(--color-orange) !important;
   color: #ffffff !important;
-  border: 1px solid #000000 !important;
+  border: 1px solid var(--color-orange) !important;
 }
 .btn-primary:hover {
-  background-color: #222222 !important;
-  border-color: #222222 !important;
+  background-color: #e55a2b !important;
+  border-color: #e55a2b !important;
 }
 
 .btn-secondary {
-  background-color: #ffffff !important;
-  border: 1px solid #cbcbcb !important;
-  color: #000000 !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
 }
 .btn-secondary:hover {
-  background-color: #f5f5f5 !important;
-  border-color: #adadad !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
 }
 
 .btn-danger {
-  background-color: #ffe5e5 !important;
-  border: 1px solid #ffcccc !important;
-  color: #ff3b30 !important;
+  background-color: rgba(255, 59, 48, 0.15) !important;
+  border: 1px solid rgba(255, 59, 48, 0.3) !important;
+  color: #ff453a !important;
 }
 .btn-danger:hover {
-  background-color: #ffd1d1 !important;
+  background-color: rgba(255, 59, 48, 0.25) !important;
 }
 
-/* Tables (Zamp light-gray format) */
+/* Tables (Zamp light-gray format mapped to glass) */
 .table-container {
-  background: #ffffff !important;
-  border: 1px solid #cbcbcb !important;
   border-radius: 16px !important;
   overflow: hidden !important;
   margin-bottom: 32px !important;
-  box-shadow: none !important;
 }
 
 .client-table {
@@ -223,11 +274,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .client-table th {
-  background: #f5f5f5 !important;
+  background: rgba(255, 255, 255, 0.02) !important;
   padding: 16px 24px !important;
   font-weight: 600 !important;
-  color: rgba(0, 0, 0, 0.6) !important;
-  border-bottom: 1px solid #cbcbcb !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
   font-family: var(--font-mono) !important;
   font-size: 11px !important;
   text-transform: uppercase !important;
@@ -236,9 +287,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .client-table td {
   padding: 18px 24px !important;
-  border-bottom: 1px solid #cbcbcb !important;
-  color: #000000 !important;
-  background: #ffffff !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+  color: #ffffff !important;
+  background: transparent !important;
   transition: background-color 0.2s ease !important;
 }
 
@@ -251,7 +302,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .client-table tr:hover td {
-  background: #f9f9f9 !important;
+  background: rgba(255, 255, 255, 0.04) !important;
 }
 
 /* Form Styling */
@@ -266,7 +317,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
-  color: rgba(0, 0, 0, 0.6) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
 }
@@ -275,9 +326,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 100% !important;
   padding: 12px 16px !important;
   border-radius: 12px !important;
-  background: #ffffff !important;
-  border: 1px solid #cbcbcb !important;
-  color: #000000 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
   font-size: 14px !important;
   outline: none !important;
   font-family: var(--font-body) !important;
@@ -285,8 +336,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-input:focus {
-  border-color: #000000 !important;
-  box-shadow: 0 0 0 1px #000000 !important;
+  border-color: var(--color-orange) !important;
+  box-shadow: 0 0 0 1px var(--color-orange) !important;
 }
 
 .form-textarea {
@@ -296,7 +347,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-select {
   appearance: none !important;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-position: right 16px center !important;
   background-size: 16px !important;
@@ -341,26 +392,28 @@ h1, h2, h3, h4, h5, h6 {
   left: 16px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
   pointer-events: none !important;
 }
 
 .search-input {
-  background: #fff !important;
-  border: 1px solid #cbcbcb !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 10px !important;
   font-family: "Geist Mono", monospace !important;
   font-size: 13px !important;
-  padding: 10px 16px 10px 44px !important; /* padding-left adjusted for icon */
+  color: #ffffff !important;
+  padding: 10px 16px 10px 44px !important;
 }
 
 .filter-select {
-  background: #fff !important;
-  border: 1px solid #cbcbcb !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 10px !important;
   font-family: "Geist Mono", monospace !important;
   font-size: 13px !important;
-  padding: 10px 36px 10px 16px !important; /* space for custom dropdown indicator arrow */
+  color: #ffffff !important;
+  padding: 10px 36px 10px 16px !important;
   width: 180px !important;
 }
 
@@ -371,8 +424,8 @@ h1, h2, h3, h4, h5, h6 {
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background: rgba(0, 0, 0, 0.4) !important;
-  backdrop-filter: blur(4px) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -383,13 +436,9 @@ h1, h2, h3, h4, h5, h6 {
 .modal-content {
   width: 100% !important;
   max-width: 580px !important;
-  background: #ffffff !important;
-  border: 1px solid #cbcbcb !important;
   border-radius: 16px !important;
   padding: 32px !important;
   position: relative !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
-  box-sizing: border-box !important;
 }
 
 .modal-header {
@@ -402,20 +451,20 @@ h1, h2, h3, h4, h5, h6 {
 .modal-title {
   font-size: 20px !important;
   font-weight: 700 !important;
-  font-family: var(--font-body) !important;
+  font-family: var(--font-display) !important;
   letter-spacing: -0.02em !important;
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 .modal-close {
   background: transparent !important;
   border: none !important;
   cursor: pointer !important;
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
   transition: color 0.2s ease !important;
 }
 .modal-close:hover {
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 /* Snapshot sidebar layout */
@@ -430,18 +479,16 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 12px !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
-  border: 1px solid #cbcbcb !important;
-  background: #f9f9f9 !important;
 }
 
 .snapshot-item:hover {
-  background: #f0f0f0 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
 .snapshot-item.active {
-  background: #ffffff !important;
-  border-color: #000000 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  background: var(--color-orange-pill-bg) !important;
+  border-color: var(--color-orange) !important;
+  box-shadow: 0 2px 12px rgba(255, 107, 53, 0.2) !important;
 }
 
 .snapshot-item-header {
@@ -451,14 +498,14 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 8px !important;
   font-family: var(--font-body) !important;
   font-size: 15px !important;
-  font-weight: 600 !important;
+  font-weight: 600;
 }
 
 .snapshot-item-stats {
   display: flex !important;
   gap: 12px !important;
   font-size: 12px !important;
-  color: rgba(0, 0, 0, 0.6) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .diff-indicator {
@@ -480,8 +527,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .exposure-card {
-  background: #ffffff !important;
-  border: 1px solid #cbcbcb !important;
   border-radius: 16px !important;
   padding: 20px 24px !important;
   display: grid !important;
@@ -489,25 +534,24 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px !important;
   align-items: center !important;
   box-sizing: border-box !important;
-  box-shadow: none !important;
 }
 
 .exposure-state-name {
   font-family: var(--font-body) !important;
   font-size: 16px !important;
   font-weight: 700 !important;
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 .exposure-metric-val {
   font-size: 15px !important;
   font-weight: 500 !important;
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 .exposure-metric-lbl {
   font-size: 10px !important;
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
   font-family: var(--font-mono) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
@@ -517,7 +561,7 @@ h1, h2, h3, h4, h5, h6 {
 .progress-container {
   width: 100% !important;
   height: 8px !important;
-  background: #e5e5e5 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
   border-radius: 9999px !important;
   overflow: hidden !important;
   position: relative !important;
@@ -551,9 +595,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .sidebar-item {
-  font-family: "Geist", sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 14px !important;
-  color: rgba(255,255,255,0.6) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
   padding: 8px 16px !important;
   cursor: pointer !important;
   display: flex !important;
@@ -564,19 +608,22 @@ h1, h2, h3, h4, h5, h6 {
 
 .sidebar-item:hover {
   color: #ffffff !important;
-  background: none !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-radius: 8px !important;
 }
 
 .sidebar-item.active {
-  color: #ffffff !important;
-  background: none !important;
+  background: var(--color-orange-pill-bg) !important;
+  border: 1px solid var(--color-orange-pill-border) !important;
+  color: var(--color-orange-pill-text) !important;
   font-weight: 600 !important;
+  border-radius: 8px !important;
 }
 
 .sidebar-client-item {
-  font-family: "Geist", sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 13px !important;
-  color: rgba(255,255,255,0.5) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
   padding: 8px 16px 8px 32px !important; /* indented */
   cursor: pointer !important;
   display: flex !important;
@@ -586,17 +633,22 @@ h1, h2, h3, h4, h5, h6 {
 
 .sidebar-client-item:hover {
   color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-radius: 8px !important;
 }
 
 .sidebar-client-item.active {
-  color: #ffffff !important;
+  background: var(--color-orange-pill-bg) !important;
+  border: 1px solid var(--color-orange-pill-border) !important;
+  color: var(--color-orange-pill-text) !important;
   font-weight: 600 !important;
+  border-radius: 8px !important;
 }
 
 .sidebar-add-client {
-  font-family: "Geist", sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 12px !important;
-  color: #005eff !important; /* Zamp blue */
+  color: var(--color-orange) !important;
   padding: 8px 16px 8px 32px !important;
   cursor: pointer !important;
   display: flex !important;
@@ -642,7 +694,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #dc2626 !important;
 }
 
-/* Loading Spiner */
+/* Loading Spinner */
 .spinner-container {
   display: flex !important;
   flex-direction: column !important;
@@ -650,15 +702,15 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center !important;
   gap: 16px !important;
   padding: 48px 0 !important;
-  color: rgba(0, 0, 0, 0.6) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .spinner {
   width: 32px !important;
   height: 32px !important;
-  border: 3px solid rgba(0, 0, 0, 0.08) !important;
+  border: 3px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 50% !important;
-  border-top-color: #005eff !important;
+  border-top-color: var(--color-orange) !important;
   animation: spin 0.8s linear infinite !important;
 }
 
@@ -674,12 +726,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 13px !important;
   font-family: var(--font-mono) !important;
   text-transform: uppercase !important;
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
   margin-bottom: 24px !important;
 }
 
 .breadcrumb-link {
-  color: #005eff !important;
+  color: var(--color-orange) !important;
   cursor: pointer !important;
   font-weight: 600 !important;
   text-decoration: none !important;
@@ -690,8 +742,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Copy CSV Area styling */
 .sample-csv-box {
-  background: #f5f5f5 !important;
-  border: 1px solid #cbcbcb !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 12px !important;
   padding: 16px !important;
 }
@@ -700,7 +752,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 11px !important;
   font-family: var(--font-mono) !important;
   font-weight: 600 !important;
-  color: rgba(0, 0, 0, 0.6) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
   text-transform: uppercase !important;
   margin-bottom: 12px !important;
   display: flex !important;
@@ -711,22 +763,22 @@ h1, h2, h3, h4, h5, h6 {
 .sample-csv-code {
   font-family: var(--font-mono) !important;
   font-size: 12px !important;
-  color: #1a1a1a !important;
+  color: #ffb899 !important;
   white-space: pre-wrap !important;
   user-select: all !important;
-  background: #ffffff !important;
+  background: rgba(0, 0, 0, 0.3) !important;
   padding: 12px !important;
   border-radius: 8px !important;
-  border: 1px solid #cbcbcb !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Custom styling overrides for UI Details block */
 .compliance-notes-box {
   padding: 16px 24px !important;
-  background: #ffffff !important;
-  border: 1px solid #cbcbcb !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 16px !important;
-  border-left: 4px solid #005eff !important;
+  border-left: 4px solid var(--color-orange) !important;
   margin-bottom: 32px !important;
 }
 
@@ -737,7 +789,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
-  color: rgba(0, 0, 0, 0.6) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
   text-transform: uppercase !important;
   margin-bottom: 6px !important;
 }

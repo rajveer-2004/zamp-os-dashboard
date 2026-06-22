@@ -292,15 +292,15 @@ Georgia,35000,45`;
       <div className="client-header-area">
         <div className="client-title-block">
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <h1 className="client-name-title" style={{ fontSize: '32px', fontWeight: 700, color: '#000000', margin: 0, letterSpacing: '-0.03em' }}>{client?.name}</h1>
+            <h1 className="client-name-title" style={{ fontSize: '32px', fontWeight: 700, color: '#ffffff', margin: 0, letterSpacing: '-0.03em' }}>{client?.name}</h1>
             <span className={`badge ${overallRiskBadge}`} style={{ fontSize: '12px', padding: '6px 14px' }}>
               {client?.overallRisk} Exposure
             </span>
           </div>
-          <p style={{ color: 'rgba(0, 0, 0, 0.5)', fontSize: '15px', marginTop: '6px', margin: '6px 0 0 0' }}>
-            Sector: <span style={{ color: '#000000', fontWeight: 600 }}>{client?.industry}</span> 
+          <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '15px', marginTop: '6px', margin: '6px 0 0 0' }}>
+            Sector: <span style={{ color: '#ffffff', fontWeight: 600 }}>{client?.industry}</span> 
             {activeSnapshot && (
-              <> | Evaluating Snapshot: <span style={{ color: '#005EFF', fontWeight: 600 }}>{activeSnapshot.period_label}</span></>
+              <> | Evaluating Snapshot: <span style={{ color: '#FF6B35', fontWeight: 600 }}>{activeSnapshot.period_label}</span></>
             )}
           </p>
         </div>
@@ -324,7 +324,7 @@ Georgia,35000,45`;
           <div className="compliance-notes-title">
             <Info size={13} /> Compliance Advisor Notes
           </div>
-          <p style={{ fontSize: '14px', color: '#333333', margin: 0, lineHeight: 1.5 }}>{client.notes}</p>
+          <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)', margin: 0, lineHeight: 1.5 }}>{client.notes}</p>
         </div>
       )}
 
@@ -333,13 +333,13 @@ Georgia,35000,45`;
         
         {/* Left Column: Snapshot History Navigation */}
         <div className="sidebar-section">
-          <div style={{ background: '#ffffff', border: '1px solid #cbcbcb', borderRadius: '16px', padding: '24px', boxSizing: 'border-box' }}>
-            <h3 style={{ fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'rgba(0, 0, 0, 0.6)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', margin: '0 0 16px 0' }}>
+          <div className="glass-panel" style={{ padding: '24px', boxSizing: 'border-box', borderRadius: '16px' }}>
+            <h3 style={{ fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', margin: '0 0 16px 0' }}>
               <Calendar size={15} /> Snapshot History
             </h3>
 
             {snapshotHistory && snapshotHistory.length === 0 ? (
-              <p style={{ fontSize: '13px', color: 'rgba(0, 0, 0, 0.4)', textAlign: 'center', padding: '20px 0', margin: 0 }}>
+              <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.4)', textAlign: 'center', padding: '20px 0', margin: 0 }}>
                 No upload history found.
               </p>
             ) : (
@@ -362,14 +362,14 @@ Georgia,35000,45`;
                       onClick={() => setActiveSnapshotId(snap.id)}
                     >
                       <div className="snapshot-item-header">
-                        <span style={{ color: isActive ? '#005EFF' : '#000000' }}>{snap.period_label}</span>
+                        <span style={{ color: isActive ? '#FF6B35' : '#ffffff' }}>{snap.period_label}</span>
                         {diffIcon}
                       </div>
                       <div className="snapshot-item-stats">
                         <span>Nexus: <strong>{snap.nexusCount}</strong></span>
                         <span>Approaching: <strong>{snap.approachingCount}</strong></span>
                       </div>
-                      <div style={{ fontSize: '10px', color: 'rgba(0, 0, 0, 0.4)', marginTop: '6px' }}>
+                      <div style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.4)', marginTop: '6px' }}>
                         Uploaded: {new Date(snap.uploaded_at).toLocaleDateString()}
                       </div>
                     </div>
@@ -410,12 +410,12 @@ Georgia,35000,45`;
             <>
               {/* Triggered Nexus (Filing Deadlines) Area */}
               <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
                   <ShieldCheck size={20} style={{ color: '#ff3b30' }} /> Triggered Nexus &amp; Filing Deadlines
                 </h3>
 
                 {nexusSchedules.length === 0 ? (
-                  <div className="table-container" style={{ padding: '24px', textAlign: 'center', color: 'rgba(0, 0, 0, 0.5)' }}>
+                  <div className="table-container" style={{ padding: '24px', textAlign: 'center', color: 'rgba(255, 255, 255, 0.5)' }}>
                     No statutory thresholds triggered in this period. Great compliance standing!
                   </div>
                 ) : (
@@ -430,7 +430,7 @@ Georgia,35000,45`;
                           <div className="exposure-metric-lbl">Revenue ({sch.transactions} Txns)</div>
                         </div>
                         <div>
-                          <div className="exposure-metric-val" style={{ color: '#005EFF', fontWeight: 600 }}>{sch.frequency}</div>
+                          <div className="exposure-metric-val" style={{ color: '#FF6B35', fontWeight: 600 }}>{sch.frequency}</div>
                           <div className="exposure-metric-lbl">Filing Frequency</div>
                         </div>
                         <div>
@@ -447,12 +447,12 @@ Georgia,35000,45`;
 
               {/* Approaching Exposure (Progress) Area */}
               <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
                   <AlertCircle size={20} style={{ color: '#ff9500' }} /> High Risk &amp; Approaching Thresholds
                 </h3>
 
                 {approachingSchedules.length === 0 ? (
-                  <div className="table-container" style={{ padding: '24px', textAlign: 'center', color: 'rgba(0, 0, 0, 0.5)' }}>
+                  <div className="table-container" style={{ padding: '24px', textAlign: 'center', color: 'rgba(255, 255, 255, 0.5)' }}>
                     No evaluated states are currently approaching limits (40% - 99%).
                   </div>
                 ) : (
@@ -463,9 +463,9 @@ Georgia,35000,45`;
                       else if (sch.maxPct >= 40) colorClass = 'progress-fill-medium';
 
                       return (
-                        <div key={sch.state} style={{ background: '#ffffff', border: '1px solid #cbcbcb', borderRadius: '16px', padding: '20px', boxSizing: 'border-box' }}>
+                        <div key={sch.state} className="glass-panel" style={{ padding: '20px', boxSizing: 'border-box', borderRadius: '16px' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                            <span style={{ fontWeight: 700, fontSize: '15px', color: '#000000' }}>📍 {sch.state}</span>
+                            <span style={{ fontWeight: 700, fontSize: '15px', color: '#ffffff' }}>📍 {sch.state}</span>
                             <span style={{ fontWeight: 700, fontSize: '14px', color: sch.maxPct >= 80 ? '#ff9500' : '#b79500' }}>
                               {sch.maxPct}% of Threshold
                             </span>
@@ -478,7 +478,7 @@ Georgia,35000,45`;
                             />
                           </div>
 
-                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'rgba(0, 0, 0, 0.5)', flexWrap: 'wrap', gap: '8px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)', flexWrap: 'wrap', gap: '8px' }}>
                             <span>Current: <strong>${sch.revenue.toLocaleString()}</strong> ({sch.transactions} Txns)</span>
                             <span style={{ color: '#ff9500', fontWeight: 600 }}>
                               Required Gap: <strong>${sch.revGap.toLocaleString()}</strong> or <strong>{sch.txGap}</strong> Txns
@@ -493,7 +493,7 @@ Georgia,35000,45`;
 
               {/* Complete State Breakdown Table */}
               <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
                   <LayoutGrid size={20} /> All States Breakdown
                 </h3>
 
@@ -517,9 +517,9 @@ Georgia,35000,45`;
 
                         return (
                           <tr key={row.state} style={{ cursor: 'default' }}>
-                            <td style={{ fontWeight: 600, color: '#000000' }}>{row.state}</td>
-                            <td style={{ textAlign: 'right', fontWeight: 500, color: '#000000' }}>${row.revenue.toLocaleString()}</td>
-                            <td style={{ textAlign: 'center', fontWeight: 500, color: '#000000' }}>{row.transactions}</td>
+                            <td style={{ fontWeight: 600, color: '#ffffff' }}>{row.state}</td>
+                            <td style={{ textAlign: 'right', fontWeight: 500, color: '#ffffff' }}>${row.revenue.toLocaleString()}</td>
+                            <td style={{ textAlign: 'center', fontWeight: 500, color: '#ffffff' }}>{row.transactions}</td>
                             <td>
                               <span className={`badge ${isNexus ? 'badge-critical' : 'badge-low'}`}>
                                 {isNexus ? 'YES' : 'NO'}
@@ -538,9 +538,9 @@ Georgia,35000,45`;
             </>
           ) : (
             <div className="table-container" style={{ padding: '60px 40px', textAlign: 'center' }}>
-              <Upload size={48} style={{ color: 'rgba(0, 0, 0, 0.3)', marginBottom: '16px' }} />
-              <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginBottom: '8px', margin: '0 0 8px 0' }}>No Transaction Data Uploaded</h4>
-              <p style={{ color: 'rgba(0, 0, 0, 0.5)', fontSize: '14px', maxWidth: '440px', margin: '0 auto 24px' }}>
+              <Upload size={48} style={{ color: 'rgba(255, 255, 255, 0.4)', marginBottom: '16px' }} />
+              <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '8px', margin: '0 0 8px 0' }}>No Transaction Data Uploaded</h4>
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '14px', maxWidth: '440px', margin: '0 auto 24px' }}>
                 Analyze this client's state-by-state sales tax exposure by uploading a CSV transaction report.
               </p>
               <button className="btn btn-primary" onClick={() => setIsUploadOpen(true)}>
@@ -616,8 +616,8 @@ Georgia,35000,45`;
 
       {/* Delete Client Confirmation Modal */}
       <Modal isOpen={isDeleteOpen} onClose={() => setIsDeleteOpen(false)} title="Confirm Account Deletion">
-        <p style={{ fontSize: '15px', color: '#333333', marginBottom: '24px', margin: '0 0 24px 0', lineHeight: 1.5 }}>
-          Are you sure you want to permanently delete <strong style={{ color: '#000000' }}>{client?.name}</strong> and all associated upload histories? This action is irreversible.
+        <p style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '24px', margin: '0 0 24px 0', lineHeight: 1.5 }}>
+          Are you sure you want to permanently delete <strong style={{ color: '#ffffff' }}>{client?.name}</strong> and all associated upload histories? This action is irreversible.
         </p>
 
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>

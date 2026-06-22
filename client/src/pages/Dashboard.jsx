@@ -62,11 +62,11 @@ export default function Dashboard({ onSelectClient, accountant, clients, isLoadi
         gap: '16px'
       }}>
         <div>
-          <h1 style={{ fontSize: '32px', fontWeight: 700, letterSpacing: '-0.03em', color: '#000000', marginBottom: '6px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: 700, letterSpacing: '-0.03em', color: '#ffffff', marginBottom: '6px' }}>
             Firm Portfolio Dashboard
           </h1>
-          <p style={{ color: 'rgba(0, 0, 0, 0.5)', fontSize: '15px', margin: 0 }}>
-            Welcome back. Review sales tax nexus exposure for all accounts at <span style={{ color: '#005EFF', fontWeight: 600 }}>{accountant?.firm_name || accountant?.firm}</span>.
+          <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '15px', margin: 0 }}>
+            Welcome back. Review sales tax nexus exposure for all accounts at <span style={{ color: '#FF6B35', fontWeight: 600 }}>{accountant?.firm_name || accountant?.firm}</span>.
           </p>
         </div>
         <button className="btn btn-primary" onClick={onOpenAddClient}>
@@ -128,7 +128,7 @@ export default function Dashboard({ onSelectClient, accountant, clients, isLoadi
 
       {/* Interactive Table Title and Action Filters */}
       <div style={{ marginBottom: '20px', marginTop: '40px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#000000', marginBottom: '16px', letterSpacing: '-0.02em' }}>Client Accounts Overview</h2>
+        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', marginBottom: '16px', letterSpacing: '-0.02em' }}>Client Accounts Overview</h2>
         
         <div className="filter-bar">
           <div className="search-input-wrapper">
@@ -143,7 +143,7 @@ export default function Dashboard({ onSelectClient, accountant, clients, isLoadi
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Filter size={16} style={{ color: 'rgba(0, 0, 0, 0.4)' }} />
+            <Filter size={16} style={{ color: 'rgba(255, 255, 255, 0.4)' }} />
             <select
               className="form-input form-select filter-select"
               value={riskFilter}
@@ -166,7 +166,7 @@ export default function Dashboard({ onSelectClient, accountant, clients, isLoadi
           <p>Retrieving client portfolio data...</p>
         </div>
       ) : sortedClientsList.length === 0 ? (
-        <div className="table-container" style={{ padding: '48px', textAlign: 'center', color: 'rgba(0, 0, 0, 0.5)' }}>
+        <div className="table-container" style={{ padding: '48px', textAlign: 'center', color: 'rgba(255, 255, 255, 0.5)' }}>
           <p style={{ fontSize: '16px', marginBottom: '8px', fontWeight: 600 }}>No client accounts found matching the criteria.</p>
           <p style={{ fontSize: '14px', margin: 0 }}>Click "+ Onboard New Client" to expand your firm portfolio.</p>
         </div>
@@ -193,23 +193,23 @@ export default function Dashboard({ onSelectClient, accountant, clients, isLoadi
 
                 return (
                   <tr key={client.id} onClick={() => onSelectClient(client.id)}>
-                    <td style={{ fontWeight: 600, color: '#000000' }}>{client.name}</td>
-                    <td style={{ color: 'rgba(0, 0, 0, 0.6)' }}>{client.industry}</td>
+                    <td style={{ fontWeight: 600, color: '#ffffff' }}>{client.name}</td>
+                    <td style={{ color: 'rgba(255, 255, 255, 0.6)' }}>{client.industry}</td>
                     <td>
                       <span className={`badge ${riskClass}`}>{client.overallRisk}</span>
                     </td>
-                    <td style={{ textAlign: 'center', fontWeight: 600, color: client.nexusCount > 0 ? '#ff3b30' : '#000000' }}>
+                    <td style={{ textAlign: 'center', fontWeight: 600, color: client.nexusCount > 0 ? '#ff3b30' : '#ffffff' }}>
                       {client.nexusCount}
                     </td>
-                    <td style={{ textAlign: 'center', fontWeight: 500, color: client.approachingCount > 0 ? '#b79500' : 'rgba(0, 0, 0, 0.4)' }}>
+                    <td style={{ textAlign: 'center', fontWeight: 500, color: client.approachingCount > 0 ? '#b79500' : 'rgba(255, 255, 255, 0.4)' }}>
                       {client.approachingCount}
                     </td>
-                    <td style={{ textAlign: 'right', fontWeight: 600, color: '#000000' }}>
+                    <td style={{ textAlign: 'right', fontWeight: 600, color: '#ffffff' }}>
                       {client.nexusRevenue > 0 ? `$${client.nexusRevenue.toLocaleString()}` : '$0'}
                     </td>
-                    <td style={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: '13px' }}>
+                    <td style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '13px' }}>
                       {client.latestSnapshot ? client.latestSnapshot.period_label : (
-                        <span style={{ color: '#005EFF', fontWeight: 500 }}>
+                        <span style={{ color: '#FF6B35', fontWeight: 500 }}>
                           No snapshot uploaded
                         </span>
                       )}
